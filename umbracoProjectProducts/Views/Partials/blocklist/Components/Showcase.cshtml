@@ -1,0 +1,54 @@
+﻿@*@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListModel>
+@{
+    if (Model?.Any() != true) { return; }
+    
+    var content = Model.Content;
+}*@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+
+    var content = (ContentModels.Showcase)Model.Content;
+    //var settings = (ContentModels.MyElementTypeAliasOfSettings)Model.Settings;
+}
+@using Umbraco.Cms.Core.Models
+@{
+    var link = content.Value<Link>("buttonLink");
+    
+}
+
+<div class="bg-background" id="PageHeader">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="header-image-left position-r">
+                @{
+                    var siteLogo = content.Value<IPublishedContent>("image");
+                    if(siteLogo!=null){<img src="@siteLogo.Url()">}else{ <img src="./img/femail.png">}
+                }
+                
+            </div>
+            <div class="header-image-text text-center">
+                <h1>
+                    @content.Value("heading")
+                   
+                </h1>
+                <p class="mt-3">@content.Value("subHeading")</p>
+                @if (link != null)
+                {
+                <a class="pink-button mt-3 p-2" href="@link.Url" target="@link.Target">@content.Value("textButton") </a>
+                }
+
+            </div>
+            <div class="header-image-right position-r">
+                @{
+                    var siteLogo2 = content.Value<IPublishedContent>("imageRight");
+                    if(siteLogo2!=null){
+                        <img src="@siteLogo2.Url()">
+                    }else{<img src="./img/male.png">}
+                }
+                
+                
+            </div>
+        </div>
+    </div>
+</div>

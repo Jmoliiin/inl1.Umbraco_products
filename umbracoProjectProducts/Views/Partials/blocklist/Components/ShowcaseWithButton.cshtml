@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.ShowcaseWithButton)Model.Content;
+    //var settings = (ContentModels.MyElementTypeAliasOfSettings)Model.Settings;
+}
+
+
+<section class="home-section-2">
+    <div class="container">
+        <div class="d-sm-flex justify-content-center align-items-center">
+
+            <div class="home-section-2-img position-r">
+                 @{
+                    var siteLogo = content.Value<IPublishedContent>("image");
+                    if(siteLogo!=null){<img src="@siteLogo.Url()">}else{ <img src="./img/women2.png">}
+                }
+                
+                <div class="home-section-2-text-left position-a d-flex align-items-start flex-column">
+                    <h2 class="header2">
+                        @content.Value("heading")
+                    </h2>
+                    <p class="mb-auto">@content.Value("subHeading")</p>
+                    <button class="black-button mt-3">@content.Value("textButton")</button>
+                </div>
+            </div>
+
+            <div class="home-section-2-img position-r">
+                 @{
+                    var siteLogo2 = content.Value<IPublishedContent>("imageRight");
+                    if(siteLogo2!=null){
+                        <img src="@siteLogo2.Url()">
+                    }else{<img src="~/img/man-2.png">}
+                }
+                
+                <div class="home-section-2-text-right position-a  d-flex align-items-start flex-column">
+                    <h2 class="header2 mt-auto">
+                        @content.Value("headingRight")
+                    </h2>
+                    <button class="black-button mt-3">@content.Value("textButtonRight")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

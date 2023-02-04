@@ -1,0 +1,14 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+	foreach (var keyword in @Model.PageKeywords){
+ViewData["PageKeywords"] +=$"{keyword},";
+}
+}
+
+@Html.GetBlockListHtml(Model, "futures")
+<!--<partial name="Home-section-1" />-->
+<!--<partial name="Home-section-2" />-->
+<!--<partial name="Home-section-3" />-->

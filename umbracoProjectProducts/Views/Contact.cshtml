@@ -1,0 +1,34 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Contact>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+	foreach (var keyword in @Model.PageKeywords){
+ViewData["PageKeywords"] +=$"{keyword},";
+}
+	
+}
+<div>
+    <div>
+        <iframe height="500" width="100%" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                src='https://www.google.com/maps/embed/v1/place?key=AIzaSyCxgdzWZ7HS6YG3JHxV5OoQF3kDtRegq8w&q=@Model.Value("streetname"),@Model.Value("zipcode"),@Model.Value("city")'>
+         </iframe>
+    </div>
+    <div class="container mt-4 mb-4 p-4">
+        <h3 class="form-header">@Model.Value("contactformHeader")</h3>
+        <form  method="POST" class="row needs-validation">
+            <div class="col-md-6">
+                <input name="name" type="text" class="form-control validation" placeholder="YOUR NAME" id="name" required>
+            </div>
+            <div class="col-md-6">
+                <input type="email" name="email" class="form-control validation" placeholder="YOUR EMAIL" id="inputEmail"  required>
+            </div>
+            <div class="col-md-12">
+                <textarea name="Message" class="form-control validation" id="inputText" rows="8" placeholder="MESSAGE" required> </textarea>
+            </div>
+            <div class="col-12">
+            <button type="submit" id="submit" class="pink-button mt-2">Post comment</button>
+            </div>
+        </form>
+    </div>
+</div>

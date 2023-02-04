@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    var content = (ContentModels.ShowcaseProducts)Model.Content;
+    //var settings = (ContentModels.MyElementTypeAliasOfSettings)Model.Settings;
+}
+
+
+@{
+
+
+	var selection = Umbraco.Content(Guid.Parse("ef9bfd3d-7027-480f-8942-a75ecc0c387a"))
+    .ChildrenOfType("productDetails")
+    .Where(x => x.IsVisible());
+}
+
+<section class="home-section-3">
+    <div class="container">
+        <div class="text-center">
+            <h4><b>@content.Value("heading")</b></h4>
+        </div>
+        <div class="products row row-cols-1 row-cols-xxl-4 row-cols-lg-3 row-cols-md-2  justify-content-space-between">
+           @foreach (var item in selection.Take(@content.Value("amount", fallback: Fallback.ToDefaultValue, defaultValue: 4)))
+            {
+                
+            <div class="col">
+                <div class="card text-center">
+                        @{
+                            /*Get the media picker of the model to display the picture*/
+                            var siteLogo = item.Value<IPublishedContent>("ProductImage");
+                            bool hasSiteLogo = siteLogo != null;
+                        }
+                        @if (siteLogo != null)
+                        {
+                             <img class="card-img-top" src="@siteLogo.Url()" alt="Card image cap">
+                            
+                        }else{
+                         <img class="card-img-top" src="..." alt="Card image cap">
+                         }
+                       
+                    <div class="card-body">
+                            <p class=""> Category</p>
+                            <h6 class="card-title"><a href="@item.Url()">@item.Value("ProductName")</a></h6>
+                       <img class="rating-stars" src="~/img/Group 2.png">
+                    </div>
+                    <div class="card-footer">
+                            <p class="card-text"> <b>@item.Value("ProductPrice") kr</b></p>
+                    </div>
+                </div>
+            </div>
+            }
+           
+        </div>
+    </div>
+</section>
